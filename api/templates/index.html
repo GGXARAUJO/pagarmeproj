@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loja de Esculturas</title>
+</head>
+<body>
+    <h1>Loja de Esculturas</h1>
+    <ul>
+        {% for escultura in esculturas %}
+        <li>
+            <img src="{{ escultura.imagem }}" alt="{{ escultura.nome }}" style="width: 200px; height: 300px; object-fit: cover;">
+            <h2>{{ escultura.nome }}</h2>
+            <p>Preço: ${{ escultura.preco }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
