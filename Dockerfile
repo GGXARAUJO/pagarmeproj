@@ -2,8 +2,13 @@ FROM python:3.8-slim
 
 WORKDIR /app
 
-RUN pip install --no-cache-dir flask
-
 COPY api/ . 
+COPY requirements.txt .
 
-CMD ["flask", "run", "--host=0.0.0.0"]
+RUN pip install --no-cache-dir -r requirements.txt
+
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=8080
+EXPOSE 8080
+
+CMD ["flask", "run"]
