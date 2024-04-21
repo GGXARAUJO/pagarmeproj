@@ -1,4 +1,4 @@
-resource "aws_security_group" "Flask-web-sg" {
+resource "aws_security_group" "flask-web-sg" {
   name        = "${var.projeto_nome}-sg"
   description = "Security Group para acesso HTTP, NFS e TCP personalizado"
   vpc_id      = var.vpc_id
@@ -36,7 +36,6 @@ resource "aws_security_group" "Flask-web-sg" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
-    description = "Permite todo o tráfego de saída"
   }
 
   tags = {
