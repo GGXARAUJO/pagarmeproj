@@ -4,7 +4,8 @@ app = Flask(__name__)
 
 esculturas = [
     {'id': 1, 'nome': 'Escultura do Pensador', 'preco': 150, 'imagem': '/static/images/pensadorclay.webp'},
-    {'id': 2, 'nome': 'Escultura de Hades', 'preco': 200, 'imagem': '/static/images/hadesclay.webp'}
+    {'id': 2, 'nome': 'Escultura de Hades', 'preco': 200, 'imagem': '/static/images/hadesclay.webp'},
+    {'id': 3, 'nome': 'Escultura de Pensadora', 'preco': 200, 'imagem': '/static/images/hadesclay.webp'}
 ]
 
 @app.route('/')
