@@ -64,7 +64,9 @@ module "ecs_task" {
 module "cloudwatch_ecs" {
   source              = "./modules/cloudwatch-ecs"  
   projeto_nome        = var.projeto_nome
-  cluster_name        = var.projeto_nome
+  cluster_name        = module.ecs_cluster.cluster_name
+  cluster_arn         = module.ecs_cluster.cluster_arn
+  service_name        = module.ecs_service.service_name
   alert_email_address = "ggxaraujo@gmail.com"
   log_retention_days  = 30
 }
