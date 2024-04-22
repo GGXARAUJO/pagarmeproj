@@ -21,13 +21,6 @@ module "ecs_cluster" {
   cluster_nome = var.projeto_nome
 }
 
-module "efs" {
-  source            = "./modules/efs"
-  efs_nome          = var.projeto_nome
-  subnet_id         = module.vpc.public_subnet_id
-  security_group_id = module.security_group.security_group_id
-}
-
 module "iam_ecs" {
   source    = "./modules/iam-ecs"
   projeto_nome = var.projeto_nome
