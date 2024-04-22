@@ -1,5 +1,5 @@
 resource "aws_iam_role" "ecs_execution_role" {
-  name = "ecsExecutionRole-${projeto_nome}"
+  name = "ecsExecutionRole-${var.projeto_nome}"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -16,7 +16,7 @@ resource "aws_iam_role" "ecs_execution_role" {
 }
 
 resource "aws_iam_policy" "ecs_efs_access_policy" {
-  name        = "ecsEFSAccessPolicy-${projeto_nome}"
+  name        = "ecsEFSAccessPolicy-${var.projeto_nome}"
   description = "Permite acesso ao EFS para ECS Tasks"
 
   policy = jsonencode({
@@ -40,8 +40,18 @@ resource "aws_iam_role_policy_attachment" "ecs_efs_access" {
   policy_arn = aws_iam_policy.ecs_efs_access_policy.arn
 }
 
+resource "aws_cloudwatch_log_group" "ecs_logs" {
+  name = "/ecs/${var.projeto_nome}"
+
+  retention_in_days = 90 
+
+  tags = {
+    Name = "ECS Logs para ${var.projeto_nome}"
+  }
+}
+
 resource "aws_iam_policy" "ecs_logs_policy" {
-  name        = "ecsLogsPolicy-${projeto_nome}"
+  name        = "ecsLogsPolicy-${var.projeto_nome}"
   path        = "/"
   description = "Permite que as tarefas do ECS enviem logs para o CloudWatch"
 
@@ -55,7 +65,7 @@ resource "aws_iam_policy" "ecs_logs_policy" {
           "logs:PutLogEvents"
         ],
         Resource = [
-          "arn:aws:logs:us-east-1:084268841007:log-group:/ecs/nifi:*"
+          "${aws_cloudwatch_log_group.ecs_logs.arn}:*"
         ]
       }
     ]
