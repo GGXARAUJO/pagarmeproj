@@ -43,7 +43,7 @@ module "ecs_service" {
   security_groups     = [module.security_group.security_group_id]
   assign_public_ip    = true
   container_name      = var.projeto_nome
-  container_port      = 80
+  container_port      = 8080
   launch_type         = "FARGATE"
 }
 
@@ -56,7 +56,7 @@ module "ecs_task" {
   memory                = "8192"
   container_cpu         = 4096
   container_memory      = 8192
-  container_port        = 80
+  container_port        = 8080
   image                 = "ggxaraujo/flask-web-escultura:prod"
   projeto_nome          = var.projeto_nome
 }

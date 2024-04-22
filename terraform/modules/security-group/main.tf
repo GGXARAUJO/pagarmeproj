@@ -12,6 +12,15 @@ resource "aws_security_group" "flask-web-sg" {
     description = "Permite acesso HTTP"
   }
 
+  # Acesso HTTP
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Permite acesso HTTP"
+  }
+
   # TCP personalizado na porta 8443
   ingress {
     from_port   = 8443
