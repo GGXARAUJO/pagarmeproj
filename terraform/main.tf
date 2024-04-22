@@ -60,3 +60,12 @@ module "ecs_task" {
   image                 = "ggxaraujo/flask-web-escultura:prod"
   projeto_nome          = var.projeto_nome
 }
+
+module "cloudwatch_ecs" {
+  source              = "./modules/cloudwatch-ecs"  
+  projeto_nome        = var.projeto_nome
+  cluster_name        = var.projeto_nome
+  alert_email_address = "ggxaraujo@gmail.com"
+  log_retention_days  = 30
+}
+
