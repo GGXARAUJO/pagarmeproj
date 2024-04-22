@@ -1,4 +1,4 @@
-resource "aws_ecs_service" "nifi_service" {
+resource "aws_ecs_service" "flask_service" {
   name            = "${var.service_name}-service"
   cluster         = var.cluster_id
   task_definition = var.task_definition_arn

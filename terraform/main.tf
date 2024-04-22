@@ -42,9 +42,9 @@ module "ecs_service" {
   subnets             = [module.vpc.public_subnet_id] 
   security_groups     = [module.security_group.security_group_id]
   assign_public_ip    = true
-  container_name   = var.projeto_nome
-  container_port   = 80
-  launch_type = "FARGATE"
+  container_name      = var.projeto_nome
+  container_port      = 80
+  launch_type         = "FARGATE"
 }
 
 module "ecs_task" {
@@ -58,4 +58,5 @@ module "ecs_task" {
   container_memory      = 8192
   container_port        = 80
   image                 = "ggxaraujo/flask-web-escultura:prod"
+  projeto_nome          = var.projeto_nome
 }

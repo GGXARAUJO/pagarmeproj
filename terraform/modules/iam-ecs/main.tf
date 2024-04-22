@@ -43,7 +43,7 @@ resource "aws_iam_role_policy_attachment" "ecs_efs_access" {
 resource "aws_cloudwatch_log_group" "ecs_logs" {
   name = "/ecs/${var.projeto_nome}"
 
-  retention_in_days = 90 
+  retention_in_days = 90
 
   tags = {
     Name = "ECS Logs para ${var.projeto_nome}"
@@ -64,9 +64,7 @@ resource "aws_iam_policy" "ecs_logs_policy" {
           "logs:CreateLogStream",
           "logs:PutLogEvents"
         ],
-        Resource = [
-          "${aws_cloudwatch_log_group.ecs_logs.arn}:*"
-        ]
+        Resource = "${aws_cloudwatch_log_group.ecs_logs.arn}:*"
       }
     ]
   })
@@ -76,4 +74,3 @@ resource "aws_iam_role_policy_attachment" "ecs_logs_policy_attachment" {
   role       = aws_iam_role.ecs_execution_role.name
   policy_arn = aws_iam_policy.ecs_logs_policy.arn
 }
-

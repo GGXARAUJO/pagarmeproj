@@ -7,7 +7,6 @@ resource "aws_ecs_task_definition" "task" {
   cpu                      = var.cpu
   memory                   = var.memory
 
-
   container_definitions = jsonencode([
     {
       name             = "flask-container",
@@ -25,7 +24,7 @@ resource "aws_ecs_task_definition" "task" {
       logConfiguration = {
         logDriver = "awslogs",
         options   = {
-          awslogs-group         = "/ecs/flask",
+          awslogs-group         = "/ecs/${var.projeto_nome}",
           awslogs-region        = "us-east-1",
           awslogs-stream-prefix = "ecs"
         }

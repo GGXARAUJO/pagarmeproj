@@ -1,3 +1,8 @@
+variable "projeto_nome" {
+  description = "Nome do projeto ecs"
+  type        = string
+}
+
 variable "execution_role_arn" {
   description = "O ARN da função IAM que a função de execução da tarefa assume."
   type        = string
