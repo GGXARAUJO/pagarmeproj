@@ -29,7 +29,7 @@
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
-                    "awslogs-group": "/ecs/teste",
+                    "awslogs-group": "/ecs/flask",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
                 }
@@ -38,8 +38,8 @@
         }
     ],
     "family": "flask",
-    "taskRoleArn": "arn:aws:iam::046143814647:role/ecsExecutionRole-teste",
-    "executionRoleArn": "arn:aws:iam::046143814647:role/ecsExecutionRole-teste",
+    "taskRoleArn": "arn:aws:iam::046143814647:role/ecsExecutionRole-flask",
+    "executionRoleArn": "arn:aws:iam::046143814647:role/ecsExecutionRole-flask",
     "networkMode": "awsvpc",
     "revision": 10,
     "volumes": [],
