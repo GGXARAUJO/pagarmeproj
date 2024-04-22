@@ -42,7 +42,6 @@ module "ecs_service" {
 
 module "ecs_task" {
   source                = "./modules/ecs-task"
-  efs_file_system_id    = module.efs.efs_id
   execution_role_arn    = module.iam_ecs.ecs_execution_role_arn
   task_role_arn         = module.iam_ecs.ecs_execution_role_arn
   cpu                   = "4096"

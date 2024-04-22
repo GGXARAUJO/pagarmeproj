@@ -15,31 +15,6 @@ resource "aws_iam_role" "ecs_execution_role" {
   })
 }
 
-resource "aws_iam_policy" "ecs_efs_access_policy" {
-  name        = "ecsEFSAccessPolicy-${var.projeto_nome}"
-  description = "Permite acesso ao EFS para ECS Tasks"
-
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Effect = "Allow",
-        Action = [
-          "elasticfilesystem:ClientMount",
-          "elasticfilesystem:ClientWrite",
-          "elasticfilesystem:DescribeFileSystems",
-        ],
-        Resource = "*",
-      },
-    ],
-  })
-}
-
-resource "aws_iam_role_policy_attachment" "ecs_efs_access" {
-  role       = aws_iam_role.ecs_execution_role.name
-  policy_arn = aws_iam_policy.ecs_efs_access_policy.arn
-}
-
 resource "aws_cloudwatch_log_group" "ecs_logs" {
   name = "/ecs/${var.projeto_nome}"
 

@@ -8,11 +8,6 @@ variable "execution_role_arn" {
   type        = string
 }
 
-variable "efs_file_system_id" {
-  description = "O ID do sistema de arquivos EFS."
-  type        = string
-}
-
 variable "cpu" {
   description = "A quantidade de CPU a ser atribuída à tarefa."
   type        = string
