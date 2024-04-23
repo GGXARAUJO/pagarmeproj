@@ -86,23 +86,27 @@ Passos para executar localmente:
 ```shell
 git clone https://github.com/GGXARAUJO/pagarmeproj.git
 ```
+
+1. Construa a imagem pré-criada
+
 ```shell
 docker build -t ggxaraujo/flask-web-escultura .
 ```
-1. Baixar imagem pré-criada
 
 Você também pode baixar a imagem existente do [DockerHub](https://hub.docker.com/r/ggxaraujo/flask-web-escultura).
 
-```shell
-docker pull ggxaraujo/flask-web-escultura:prod
-```
-1. Executar o contêiner
+1. Baixe a imagem do Dockerhub
 
-Crie um contêiner a partir da imagem.
+  ```shell
+  docker pull ggxaraujo/flask-web-escultura:prod
+  ```
 
-```shell
-docker run --name my-container -d -p 8080:8080 ggxaraujo/flask-web-escultura:prod
-```
+1. Execute um contêiner a partir da imagem.
+
+  ```shell
+  docker run --name my-container -d -p 8080:8080 ggxaraujo/flask-web-escultura:prod
+  ```
+
 Agora visite http://localhost:8080
 
 ### Pré-requisitos
