@@ -45,10 +45,10 @@ module "ecs_task" {
   source                = "./modules/ecs-task"
   execution_role_arn    = module.iam_ecs.ecs_execution_role_arn
   task_role_arn         = module.iam_ecs.ecs_execution_role_arn
-  cpu                   = "4096"
-  memory                = "8192"
-  container_cpu         = 4096
-  container_memory      = 8192
+  cpu                   = "2048"
+  memory                = "4096"
+  container_cpu         = 2048
+  container_memory      = 4096
   container_port        = 8080
   image                 = "ggxaraujo/flask-web-escultura:prod"
   projeto_nome          = var.projeto_nome
