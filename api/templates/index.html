@@ -3,17 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <title>Loja de Esculturas</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 2.5em;
+            color: #4a4e69;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0 20px;
+        }
+        .escultura-item {
+            flex: 1 0 30%; 
+            margin: 15px;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            text-decoration: none; 
+            color: inherit; 
+        }
+        .escultura-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+        }
+        img {
+            max-width: 100%; /* Ajusta a largura máxima para evitar corte */
+            height: auto; /* Ajusta automaticamente a altura para manter a proporção */
+            border-radius: 5px;
+        }
+        h2 {
+            font-size: 1.5em;
+            color: #333;
+            margin-top: 10px;
+        }
+        p {
+            font-size: 1.2em;
+            color: #626567;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <h1>Loja de Esculturas</h1>
-    <ul>
+    <div class="container">
         {% for escultura in esculturas %}
-        <li>
-            <img src="{{ escultura.imagem }}" alt="{{ escultura.nome }}" style="width: 200px; height: 300px; object-fit: cover;">
+        <a href="/escultura/{{ escultura.id }}" class="escultura-item">
+            <img src="{{ escultura.imagem }}" alt="{{ escultura.nome }}">
             <h2>{{ escultura.nome }}</h2>
             <p>Preço: ${{ escultura.preco }}</p>
-        </li>
+        </a>
         {% endfor %}
-    </ul>
+    </div>
 </body>
 </html>
