@@ -10,6 +10,12 @@ resource "aws_ecs_service" "flask_service" {
     security_groups = var.security_groups
     assign_public_ip = var.assign_public_ip
   }
+  
+   load_balancer {
+    target_group_arn = var.target_group_arn
+    container_name   = var.container_name
+    container_port   = var.container_port
+  }
 
   depends_on = [var.task_definition_arn]
 

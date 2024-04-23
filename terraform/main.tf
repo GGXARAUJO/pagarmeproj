@@ -21,13 +21,6 @@ module "ecs_cluster" {
   cluster_nome = var.projeto_nome
 }
 
-module "efs" {
-  source            = "./modules/efs"
-  efs_nome          = var.projeto_nome
-  subnet_id         = module.vpc.public_subnet_id
-  security_group_id = module.security_group.security_group_id
-}
-
 module "iam_ecs" {
   source    = "./modules/iam-ecs"
   projeto_nome = var.projeto_nome
@@ -42,14 +35,14 @@ module "ecs_service" {
   subnets             = [module.vpc.public_subnet_id] 
   security_groups     = [module.security_group.security_group_id]
   assign_public_ip    = true
-  container_name      = var.projeto_nome
+  container_name      = "flask-container"
   container_port      = 8080
+  target_group_arn    = module.ecs-nlb-target_group.tg_arn
   launch_type         = "FARGATE"
 }
 
 module "ecs_task" {
   source                = "./modules/ecs-task"
-  efs_file_system_id    = module.efs.efs_id
   execution_role_arn    = module.iam_ecs.ecs_execution_role_arn
   task_role_arn         = module.iam_ecs.ecs_execution_role_arn
   cpu                   = "4096"
@@ -70,4 +63,27 @@ module "cloudwatch_ecs" {
   alert_email_address = "ggxaraujo@gmail.com"
   log_retention_days  = 30
 }
+
+module "ecs-nlb" {
+  source = "./modules/ecs-nlb"
+  nlb_name                   = "flask-nlb"
+  internal                   = false
+  subnets                    = [module.vpc.public_subnet_id]
+  enable_deletion_protection = false
+  target_group_arn           = module.ecs-nlb-target_group.tg_arn
+  load_balancer_arn          = module.ecs-nlb.nlb_arn
+}
+
+module "ecs-nlb-target_group" {
+  source = "./modules/ecs-nlb-target-group"
+  tg_name               = "flask-tg"
+  port                  = 8080
+  protocol              = "TCP"
+  vpc_id                = module.vpc.vpc_id
+  health_check_interval = 30
+  healthy_threshold     = 3
+  unhealthy_threshold   = 3
+  target_type = "ip"
+}
+
 
