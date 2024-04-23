@@ -28,6 +28,11 @@ variable "security_groups" {
   type        = list(string)
 }
 
+variable "target_group_arn" {
+  description = "O ARN do Target Group"
+  type        = string
+}
+
 variable "assign_public_ip" {
   description = "Atribuir um IP público à ENI (somente Fargate)"
   type        = bool

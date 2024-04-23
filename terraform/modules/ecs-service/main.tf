@@ -16,6 +16,10 @@ resource "aws_ecs_service" "flask_service" {
     container_name   = var.container_name
     container_port   = var.container_port
   }
+  
+  deployment_controller {
+    type = "CODE_DEPLOY"
+  }
 
   depends_on = [var.task_definition_arn]
 

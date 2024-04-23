@@ -37,7 +37,7 @@ module "ecs_service" {
   assign_public_ip    = true
   container_name      = "flask-container"
   container_port      = 8080
-  target_group_arn    = module.ecs-nlb-target_group.tg_arn
+  target_group_arn    = module.ecs_nlb.tg1_arn
   launch_type         = "FARGATE"
 }
 
@@ -64,26 +64,38 @@ module "cloudwatch_ecs" {
   log_retention_days  = 30
 }
 
-module "ecs-nlb" {
-  source = "./modules/ecs-nlb"
+module "ecs_nlb" {
+  source = "./modules/ecs-nlb"  
+
   nlb_name                   = "flask-nlb"
   internal                   = false
   subnets                    = [module.vpc.public_subnet_id]
   enable_deletion_protection = false
-  target_group_arn           = module.ecs-nlb-target_group.tg_arn
-  load_balancer_arn          = module.ecs-nlb.nlb_arn
+  tags                       = {
+    Environment = "production"
+  }
+
+  # Configurações para o primeiro Target Group
+  tg1_name   = "flask-tg1"
+  tg1_port   = 8443
+  # Configurações para o segundo Target Group
+  tg2_name   = "flask-tg2"
+  tg2_port   = 8080
+  vpc_id = module.vpc.vpc_id  
 }
 
-module "ecs-nlb-target_group" {
-  source = "./modules/ecs-nlb-target-group"
-  tg_name               = "flask-tg"
-  port                  = 8080
-  protocol              = "TCP"
-  vpc_id                = module.vpc.vpc_id
-  health_check_interval = 30
-  healthy_threshold     = 3
-  unhealthy_threshold   = 3
-  target_type = "ip"
+module "code_deploy" {
+  source                      = "./modules/code-deploy"  
+  application_name            = "flask-application"
+  deployment_group_name       = "flask-deployment-group"
+  deployment_config_name      = "CodeDeployDefault.ECSAllAtOnce"
+  cluster_name                = module.ecs_cluster.cluster_name         
+  service_name                = module.ecs_service.service_name        
+  target_group_name           = module.ecs_nlb.tg1_name
+  second_target_group_name = module.ecs_nlb.tg2_name
+  prod_listener_arn           = module.ecs_nlb.prod_listener_arn
+  test_listener_arn           = module.ecs_nlb.test_listener_arn
+  service_role_arn =  module.iam_ecs.ecs_execution_role_arn
 }
 
 
