@@ -3,6 +3,6 @@ resources:
   - TargetService:
       Type: AWS::ECS::Service
       Properties:
-        TaskDefinition: arn:aws:ecs:us-east-1:046143814647:task-definition/flask:13
+        TaskDefinition: arn:aws:ecs:us-east-1:046143814647:task-definition/flask:24
           ContainerName: flask-container
           ContainerPort: 80
