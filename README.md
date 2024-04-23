@@ -1,6 +1,7 @@
 # Pagarme Projeto aws-challenges
 <details>
   <summary>Descrição do desafio Pagarme</summary>
+
 ## Introducao
 [Keep it simple](https://pt.wikipedia.org/wiki/Princ%C3%ADpio_KISS), entendemos que você possui suas prioridades e nossa proposta com esse desafio é ter uma idéia de como você faz seus códigos, toma suas decisões arquiteturais e o seu conhecimento geral sobre os assuntos abordados.
 
@@ -54,7 +55,7 @@ Estas são as tecnologias que usamos, mas sinta-se a vontade para trazer quaisqu
 
 </details>
 
-# Aplicação Web em Flask (Python) com Terraform na AWS
+## Aplicação Web em Flask (Python) com Terraform na AWS
 
 Este repositório inclui um site em Python Flask.
 
@@ -62,7 +63,7 @@ Este repositório inclui um site em Python Flask.
 
 Passos para executar localmente:
 
-1. (Opcional) Se você não conseguir abrir o devcontainer, [crie um ambiente virtual Python](https://docs.python.org/3/tutorial/venv.html#creating-virtual-environments) e ative-o.
+1. (Opcional) [Crie um ambiente virtual Python](https://docs.python.org/3/tutorial/venv.html#creating-virtual-environments) e ative-o.
 
 1. Instale os requisitos:
 
@@ -73,10 +74,31 @@ Passos para executar localmente:
 1. Execute o servidor local:
 
     ```shell
-    python3 -m flask --debug run --port 50505
+    python3 -m flask --debug run --port 8080
     ```
 
-1. Clique em 'http://127.0.0.1:50505' no terminal, o que deve abrir o site em uma nova aba.
+1. Clique em 'http://localhost:8080' no terminal, o que deve abrir o site em uma nova aba.
+
+## Desenvolvimento local no Docker
+
+1. Construa a imagem Docker manualmente clonando o repositório Git.
+
+$ git clone https://github.com/GGXARAUJO/pagarmeproj.git
+$ docker build -t ggxaraujo/flask-web-escultura .
+
+1. Baixar imagem pré-criada
+
+Você também pode baixar a imagem existente do [DockerHub](https://hub.docker.com/r/ggxaraujo/flask-web-escultura).
+
+docker pull ggxaraujo/flask-web-escultura:prod
+
+1. Executar o contêiner
+
+Crie um contêiner a partir da imagem.
+
+$ docker run --name my-container -d -p 8080:8080 ggxaraujo/flask-web-escultura:prod
+
+Agora visite http://localhost:8080
 
 ### Pré-requisitos
 
