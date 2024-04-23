@@ -79,5 +79,7 @@ jobs:
           service: flask-service
           cluster: flask-cluster
           task-definition: task-definition.json
+          codedeploy-application: flask-application
+          codedeploy-deployment-group: flask-deployment-group
           wait-for-service-stability: true
 
