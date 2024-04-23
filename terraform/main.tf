@@ -35,8 +35,9 @@ module "ecs_service" {
   subnets             = [module.vpc.public_subnet_id] 
   security_groups     = [module.security_group.security_group_id]
   assign_public_ip    = true
-  container_name      = var.projeto_nome
+  container_name      = "flask-container"
   container_port      = 8080
+  target_group_arn    = module.ecs-nlb-target_group.tg_arn
   launch_type         = "FARGATE"
 }
 
@@ -62,4 +63,27 @@ module "cloudwatch_ecs" {
   alert_email_address = "ggxaraujo@gmail.com"
   log_retention_days  = 30
 }
+
+module "ecs-nlb" {
+  source = "./modules/ecs-nlb"
+  nlb_name                   = "flask-nlb"
+  internal                   = false
+  subnets                    = [module.vpc.public_subnet_id]
+  enable_deletion_protection = false
+  target_group_arn           = module.ecs-nlb-target_group.tg_arn
+  load_balancer_arn          = module.ecs-nlb.nlb_arn
+}
+
+module "ecs-nlb-target_group" {
+  source = "./modules/ecs-nlb-target-group"
+  tg_name               = "flask-tg"
+  port                  = 8080
+  protocol              = "TCP"
+  vpc_id                = module.vpc.vpc_id
+  health_check_interval = 30
+  healthy_threshold     = 3
+  unhealthy_threshold   = 3
+  target_type = "ip"
+}
+
 
