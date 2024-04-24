@@ -55,9 +55,16 @@ Estas são as tecnologias que usamos, mas sinta-se a vontade para trazer quaisqu
 
 </details>
 
-## Aplicação Web em Flask (Python) com Terraform na AWS
+## Aplicação Web em Flask (Python) - Loja de Esculturas
 
-Este repositório inclui um site em Python Flask.
+Este repositório contém o código fonte para uma aplicação web desenvolvida em Python utilizando o micro-framework Flask. O site foi projetado para funcionar como uma loja virtual na venda de esculturas. Ele oferece uma interface amigável onde os usuários podem visualizar uma lista de esculturas disponíveis para compra.
+
+## Relatório de Entrega
+As escolhas das tecnologias foram baseadas na melhor interação e descrição do desafio. Anteriormente, eu não utilizava tecnologias como o GitHub Actions; no entanto, ao iniciar os testes da pipeline, percebi que ela era bastante semelhante ao que já tinha experiência anterior (GitLab e Azure Pipeline). As pipelines são compostas por testes unitários, atualização da imagem no Docker Hub e, posteriormente, o deploy do serviço ECS. A escolha da pipeline de deploy foi o próprio GitHub Actions, integrado ao CodeDeploy. Esta tecnologia de deploy foi selecionada pela praticidade e boa documentação do Actions, além de sua integração com o CodeDeploy. O framework escolhido foi o Flask, devido à minha familiaridade com Python e pela simplicidade de desenvolvimento que ele oferece, sendo ideal para este projeto.
+
+A estrutura de diretórios do Terraform foi planejada para facilitar a compreensão dos recursos, organizando-os em pastas específicas para cada módulo. Importante ressaltar que nenhum recurso é criado no arquivo main.tf principal, permitindo assim que o código seja facilmente reutilizável.
+
+A tecnologia de monitoramento escolhida foi o CloudWatch da AWS, o módulo do CloudWatch conta com três alertas: dois deles são gerados pelo próprio CloudWatch, monitorando a utilização de CPU e memória, e o terceiro é gerado pelo EventBridge, que verifica o estado da task. Se a task estiver parada, ele gera uma notificação. Todos esses alertas são enviados por SNS via email, o que é crucial para a monitoração e a resposta rápida a potenciais problemas.
 
 ## Desenvolvimento local
 
@@ -123,3 +130,24 @@ Os seguintes pré-requisitos são necessários para usar esta aplicação. Por f
 ### Diagrama da Infraestrutura:
 
 ![cloud infrastructure design](./assets/diagram.png)
+
+### Infraestrutura com o Terraform na AWS
+A infraestrutura é composta pelos seguintes módulos:
+
+- Virtual Private Cloud (VPC)
+- Security Group
+- ECS Task
+- ECS Service
+- CodeDeploy
+- NLB (Network Load Balancer)
+- ECS Cluster
+- IAM-ECS
+- CloudWatch
+
+### GitHub Actions - CI/CD
+
+Na pasta [.github/workflows](https://github.com/GGXARAUJO/pagarmeproj/blob/main/.github/workflows) encontram os pipelines atualmente implementados
+
+- [.github/workflows/prod.yaml](https://github.com/GGXARAUJO/pagarmeproj/blob/main/.github/workflows/prod.yml): Este workflow do GitHub Actions é acionado em pull requests para a branch 'main', realizando build, linting e testes do código, seguidos pelo deploy em produção usando Code Deploy.
+    
+- [.github/workflows/dev.yaml](https://github.com/GGXARAUJO/pagarmeproj/blob/main/.github/workflows/dev.yml): Este workflow do GitHub Actions é acionado ao fazer push para todas as branches exceto 'main', compilando e analisando o código, e em seguida executando testes.
