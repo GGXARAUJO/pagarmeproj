@@ -116,6 +116,22 @@ Você também pode baixar a imagem existente do [DockerHub](https://hub.docker.c
 
 Agora visite http://localhost:8080
 
+## Desenvolvimento na AWS com Terraform
+
+1. Configure suas credenciais AWS
+
+```shell
+export AWS_ACCESS_KEY_ID=aws_key
+export AWS_SECRET_ACCESS_KEY=aws_secret
+ ```
+
+2. Deploy da infraestrutura
+   
+```shell
+terraform init 
+terraform apply
+  ```
+    
 ### Pré-requisitos
 
 > Este modelo criará infraestrutura e implantará código na AWS.
