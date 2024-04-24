@@ -1,6 +1,6 @@
 # Pagarme Projeto aws-challenges
 <details>
-  <summary>Descrição do desafio Pagarme</summary>
+  <summary>Descrição do Desafio Pagarme</summary>
 
 ## Introducao
 [Keep it simple](https://pt.wikipedia.org/wiki/Princ%C3%ADpio_KISS), entendemos que você possui suas prioridades e nossa proposta com esse desafio é ter uma idéia de como você faz seus códigos, toma suas decisões arquiteturais e o seu conhecimento geral sobre os assuntos abordados.
@@ -83,11 +83,11 @@ Passos para executar localmente:
 
 1. Construa a imagem Docker manualmente clonando o repositório Git.
 
-```shell
-git clone https://github.com/GGXARAUJO/pagarmeproj.git
-```
+  ```shell
+  git clone https://github.com/GGXARAUJO/pagarmeproj.git
+  ```
 
-1. Construa a imagem pré-criada
+2. Construa a imagem pré-criada
 
 ```shell
 docker build -t ggxaraujo/flask-web-escultura .
@@ -95,13 +95,13 @@ docker build -t ggxaraujo/flask-web-escultura .
 
 Você também pode baixar a imagem existente do [DockerHub](https://hub.docker.com/r/ggxaraujo/flask-web-escultura).
 
-1. Baixe a imagem do Dockerhub
+3. Baixe a imagem do Dockerhub
 
   ```shell
   docker pull ggxaraujo/flask-web-escultura:prod
   ```
 
-1. Execute um contêiner a partir da imagem.
+4. Execute um contêiner a partir da imagem.
 
   ```shell
   docker run --name my-container -d -p 8080:8080 ggxaraujo/flask-web-escultura:prod
@@ -119,3 +119,7 @@ Os seguintes pré-requisitos são necessários para usar esta aplicação. Por f
 - [Python (3.8+)](https://www.python.org/downloads/)
 - [CLI do Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli#install-terraform)
 
+
+### Diagrama da Infraestrutura:
+
+![cloud infrastructure design](./assets/diagram.png)
