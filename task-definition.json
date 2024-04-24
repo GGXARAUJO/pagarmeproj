@@ -1,5 +1,5 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:046143814647:task-definition/flask:24",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:046143814647:task-definition/flask:38",
     "containerDefinitions": [
         {
             "name": "flask-container",
